@@ -1,6 +1,7 @@
 {
 	"name": "DS_Blob_Customer_copy1",
 	"properties": {
+		"description": "Blob connection",
 		"linkedServiceName": {
 			"referenceName": "LS_Blob_Storage",
 			"type": "LinkedServiceReference"
