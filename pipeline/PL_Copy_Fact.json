@@ -1,0 +1,122 @@
+{
+	"name": "PL_Copy_Fact",
+	"properties": {
+		"activities": [
+			{
+				"name": "Cpy_FactPurchaseOrder",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"sqlWriterStoredProcedureName": "[dbo].[usp_LoadPurchaseOrder]",
+						"sqlWriterTableType": "StagingPurchaseOrder",
+						"storedProcedureTableTypeParameterName": "source"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "PurchaseOrderID",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "PurchaseOrderID",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "CustomerCode",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "CustomerCode",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductCode",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "ProductCode",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "EmployeeCode",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "EmployeeCode",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "PuchaseOrderDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "PuchaseOrderDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Quantity",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "Quantity",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "UnitPrice",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UnitPrice",
+									"type": "Decimal"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_SQL_PurchaseOrder",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_SQL_FactPurchaseOrder",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

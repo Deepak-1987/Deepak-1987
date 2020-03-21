@@ -1,0 +1,16 @@
+{
+	"name": "LS_OnPremise_SqlServer",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=DEEPAK\\MSSQLSERVER2014;initial catalog=MyDB;user id=MyLogin",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI5ZDFlYWFjYy05ZTI1LTRhOTktODFkZS1lZmJlYmYwMjA2YWIiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "IRLocalPC",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

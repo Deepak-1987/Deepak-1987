@@ -1,0 +1,6 @@
+{
+	"name": "IRLocalPC",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}

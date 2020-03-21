@@ -1,0 +1,34 @@
+{
+	"name": "DS_Blob_SourceFile",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Blob_Storage",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"DSFileName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "DS_TransgerBlob_Dynamic"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().DSFileName",
+					"type": "Expression"
+				},
+				"container": "surceblob"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

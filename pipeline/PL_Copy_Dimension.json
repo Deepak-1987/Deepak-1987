@@ -1,0 +1,254 @@
+{
+	"name": "PL_Copy_Dimension",
+	"properties": {
+		"activities": [
+			{
+				"name": "Cpy_DimEmployee",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"sqlWriterStoredProcedureName": "[dbo].[usp_LoadEmployee]",
+						"sqlWriterTableType": "StagingEmployee",
+						"storedProcedureTableTypeParameterName": "source"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "EmployeeCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "EmployeeCode",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": " EmployeeName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "EmployeeName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": " Address",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Address",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": " PhoneNumber",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PhoneNumber",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_Blob_Employee",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_SQL_DimEmployee",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy_DimCustomer",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"sqlWriterStoredProcedureName": "[dbo].[usp_LoadCustomer]",
+						"sqlWriterTableType": "StagingCustomer",
+						"storedProcedureTableTypeParameterName": "source"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "CustomerCode",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "CustomerCode",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "CustomerName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CustomerName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Address",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Address",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PhoneNumber",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PhoneNumber",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_SQL_Customer",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_SQL_DimCustomer",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Cpy_DimProduct",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"sqlWriterStoredProcedureName": "[dbo].[usp_LoadProduct]",
+						"sqlWriterTableType": "StagingProduct",
+						"storedProcedureTableTypeParameterName": "source"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ProductCode",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "ProductCode",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProductName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductGroup",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProductGroup",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_SQL_Product",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_SQL_DimProduct",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
